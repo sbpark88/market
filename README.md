@@ -11,22 +11,22 @@ https://github.com/othneildrew/Best-README-Template 를 기본으로 하여 수�
     <img src="https://github.com/sbpark88/sbpark88.github.io/blob/main/assets/images/favicon/greendreamtree.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Starbucks</h3>
+  <h3 align="center">Market</h3>
 
   <p align="center">
-    프로젝트 설명을 1줄로 간단하게 작성
+    마켓
     <!-- docs 가 필요시 주석을 해제하고 사용
     <br />
-    <a href="https://github.com/othneildrew/project-repository"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/othneildrew/market"><strong>Explore the docs »</strong></a>
     -->
     <br />
     <br />
     <!-- 아래 경로를 [product-deploy-url] 로 교체하고 문서 내 모든 `project-repository`를 수정한다 -->
     <a href="javascript:void(0)">View Demo</a>
     ·
-    <a href="https://github.com/sbpark88/project-repository/projects">Project</a>
+    <a href="https://github.com/sbpark88/market/projects">Project</a>
     ·
-    <a href="https://github.com/sbpark88/project-repository/issues">Issue</a>
+    <a href="https://github.com/sbpark88/market/issues">Issue</a>
   </p>
 </div>
 
@@ -86,16 +86,8 @@ https://github.com/othneildrew/Best-README-Template 를 기본으로 하여 수�
 ![SCSS][SCSS Icon]
 ![TypeScript][TypeScript Icon]
 ![React][React Icon]
-![Styled Components][Styled Components Icon]
-![MUI][MUI Icon]
 ![Tailwind CSS][Tailwind CSS Icon]
-![Redux][Redux Icon]
-![Redux Saga][Redux Saga Icon]
-![Recoil][Recoil Icon]
-![Zustand][Zustand Icon]
 ![Next.js][Next.js Icon]
-![Swift][Swift Icon]
-![SwiftUI][SwiftUI Icon]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -123,7 +115,7 @@ brew install npm
 
 1. Clone the repo
    ```shell
-   git clone https://github.com/sbpark88/project-repository.git
+   git clone https://github.com/sbpark88/market.git
    ```
 2. Install NPM packages
    ```shell
@@ -153,11 +145,25 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] 로드맵 1
-- [ ] 로드맵 2
-- [ ] 로드맵 3
-    - [ ] 로드맵 3-1
-    - [ ] 로드맵 3-2
+- [ ] Atomic Components
+- [ ] Next Auth
+- [ ] Product page
+    - [ ] UI
+    - [ ] Kakao Map
+- [ ] Home page
+    - [ ] UI
+    - [ ] Favorite
+    - [ ] Categories
+    - [ ] Pagination
+- [ ] Product detail page
+    - [ ] UI
+    - [ ] Dynamic routes
+- [ ] Chat
+    - [ ] UI
+    - [ ] Socket
+    - [ ] SWR
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
