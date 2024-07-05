@@ -101,13 +101,21 @@ https://github.com/othneildrew/Best-README-Template 를 기본으로 하여 수�
 
 - npm
 ```shell
-npm install npm@latest -g
+npm install --global yarn
 ```
+
+[Install Docker Desktop on Windows](https://docs.docker.com/desktop/install/windows-install/),
+[Install Docker Desktop on Linux](https://docs.docker.com/desktop/install/linux-install/)
+를 참고한다.
 
 or
 
+맥 시스템일 경우 [Homebrew](https://brew.sh) 를 사용하면 편리하다.
+
 ```shell
-brew install npm
+brew install yarn
+brew install docker docker-compose
+brew services start docker
 ```
 
 ### Installation
@@ -119,9 +127,17 @@ brew install npm
    ```
 2. Install NPM packages
    ```shell
-   npm install
+   yarn install
    ```
-3. Run the script
+3. Install PostgreSQL using the docker container
+   ```shell
+   docker-compose up -d
+   ```
+4. Create Database in PostgreSQL
+   ```shell
+   npx prisma db push
+   ```
+5. Run the script
    ```shell
    npm run start
    ```
