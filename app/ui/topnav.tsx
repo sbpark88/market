@@ -4,9 +4,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import useDebounceFn from "@/app/utils/useDebounceFn";
+import { useSession } from "next-auth/react";
+import { SignIn } from "@/app/ui/signin-button";
+import { SignOut } from "@/app/ui/signout-button";
 
 export default function TopNav() {
   const [open, setOpen] = useState(false);
+  const { status, data: session, update } = useSession();
+  // TODO: Remove this console
+  console.log(status, session?.user);
+
   const closeNav = useDebounceFn(() => {
     if (window.innerWidth >= 768) {
       setOpen(false);
@@ -51,8 +58,7 @@ export default function TopNav() {
             )}
           >
             <NavLinks />
-            <button className="py-2 md:ml-5">Sign Out</button>
-            <button className="py-2 md:ml-5">Sign In</button>
+            {session?.user ? <SignOut /> : <SignIn />}
           </div>
         </div>
       </div>
