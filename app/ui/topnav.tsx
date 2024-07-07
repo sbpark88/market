@@ -11,8 +11,6 @@ import { SignOut } from "@/app/ui/signout-button";
 export default function TopNav() {
   const [open, setOpen] = useState(false);
   const { status, data: session, update } = useSession();
-  // TODO: Remove this console
-  console.log(status, session?.user);
 
   const closeNav = useDebounceFn(() => {
     if (window.innerWidth >= 768) {

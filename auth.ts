@@ -1,27 +1,11 @@
-import NextAuth, { type DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
+import { z } from "zod";
 import { authConfig } from "@/auth.config";
 import { PrismaClient } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "@auth/core/providers/credentials";
 import Google from "@auth/core/providers/google";
-
-declare module "next-auth" {
-  /**
-   * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
-   */
-  interface Session {
-    user: {
-      /** The user's postal address. */
-      address: string;
-      /**
-       * By default, TypeScript merges new interface properties and overwrites existing ones.
-       * In this case, the default session user properties will be overwritten,
-       * with the new ones defined above. To keep the default session user properties,
-       * you need to add them back into the newly declared interface.
-       */
-    } & DefaultSession["user"];
-  }
-}
+import { Role, User } from "@/prisma/generated/prisma-client-js";
 
 const prisma = new PrismaClient();
 
@@ -43,12 +27,46 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       authorize: async (credentials) => {
-        let user = null;
-        // TODO: Replace this sample user
-        user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-        return user;
+        const parsedCredentials = z
+          .object({
+            email: z.string().email(),
+            password: z.string().min(6),
+          })
+          .safeParse(credentials);
+
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data;
+          // const user = await getUser(email);
+          // if (!user) return null;
+          // const passwordsMatch = await bcrypt.compare(password, user.password);
+          //
+          // if (passwordsMatch) return user;
+          let user = null;
+          // TODO: Replace this sample user
+          user = {
+            id: "1",
+            name: "J Smith",
+            email: "jsmith@example.com",
+            // role: Role.ADMIN,
+            role: Role.USER,
+          };
+          return user;
+        }
+
+        console.log("Invalid credentials");
+        return null;
       },
     }),
     Google,
   ],
 });
+
+async function getUser(email: string): Promise<User | undefined> {
+  try {
+    // const user = await
+    return undefined;
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
+}
