@@ -1,9 +1,10 @@
-import { signIn } from "next-auth/react";
+import React from "react";
+import Link from "next/link";
 
 export function SignIn() {
   return (
-    <button onClick={() => signIn()} className="py-2 md:ml-5">
+    <Link href="/auth/login" className="py-2 md:ml-5">
       Sign In
-    </button>
+    </Link>
   );
 }

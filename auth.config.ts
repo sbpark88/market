@@ -14,7 +14,7 @@ const ERROR_PAGES = ["/unauthorized"];
 export const authConfig = {
   // https://authjs.dev/reference/nextjs#pages
   pages: {
-    signIn: "/login",
+    signIn: "/auth/login",
   },
   // https://authjs.dev/reference/nextjs#callbacks
   callbacks: {
