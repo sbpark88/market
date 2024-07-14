@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Redirect from "@/app/ui/auth/redirect";
 import { signInAction } from "@/app/lib/actions";
+import { signIn } from "next-auth/react";
 
 export default function Form() {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +25,12 @@ export default function Form() {
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     setIsLoading(true);
     try {
-      await signInAction(formData as FormData);
+      // server action 을 사용.
+      // await signInAction(formData as FormData);
+      // await signIn()  // 클라이언트 session 이 갱신되지 않아 강제로 갱신 처리.
+
+      // 처음부터 next-auth/react 에 있는 signIn 을 사용.
+      await signIn("credentials", formData);
     } catch (error) {
       console.error("Sign in error:", error);
     }
