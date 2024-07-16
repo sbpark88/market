@@ -6,6 +6,7 @@ import Credentials from "@auth/core/providers/credentials";
 import Google from "@auth/core/providers/google";
 import { Role, User } from "@/prisma/generated/prisma-client-js";
 import prisma from "./helpers/prismadb";
+import bcrypt from "bcrypt";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -34,21 +35,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          // const user = await getUser(email);
-          // if (!user) return null;
-          // const passwordsMatch = await bcrypt.compare(password, user.password);
-          //
-          // if (passwordsMatch) return user;
-          let user = null;
-          // TODO: Replace this sample user
-          user = {
-            id: "1",
-            name: "J Smith",
-            email: "jsmith@example.com",
-            // role: Role.ADMIN,
-            role: Role.USER,
-          };
-          return user;
+          const user = await getUser(email);
+          if (!user || typeof user.password !== "string") return null;
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          if (passwordsMatch) return user;
         }
 
         console.log("Invalid credentials");
@@ -61,8 +52,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
-    // const user = await
-    return undefined;
+    return await prisma.user.findUnique({
+      where: { email },
+    });
   } catch (error) {
     console.error("Failed to fetch user:", error);
     throw new Error("Failed to fetch user.");

@@ -15,6 +15,7 @@ export const authConfig = {
   // https://authjs.dev/reference/nextjs#pages
   pages: {
     signIn: "/auth/login",
+    error: "/auth/error",
   },
   // https://authjs.dev/reference/nextjs#callbacks
   callbacks: {
