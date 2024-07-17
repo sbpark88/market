@@ -4,13 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import useDebounceFn from "@/app/utils/useDebounceFn";
-import { useSession } from "next-auth/react";
 import { SignIn } from "@/app/ui/signin-button";
 import { SignOut } from "@/app/ui/signout-button";
+import { User } from "@/prisma/generated/prisma-client-js";
 
-export default function TopNav() {
+export default function TopNav({ user }: { user?: User }) {
   const [open, setOpen] = useState(false);
-  const { status, data: session, update } = useSession();
 
   const closeNav = useDebounceFn(() => {
     if (window.innerWidth >= 768) {
@@ -56,7 +55,7 @@ export default function TopNav() {
             )}
           >
             <NavLinks />
-            {session?.user ? <SignOut /> : <SignIn />}
+            {user ? <SignOut /> : <SignIn />}
           </div>
         </div>
       </div>
