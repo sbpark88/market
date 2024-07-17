@@ -10,6 +10,7 @@ import { signIn } from "next-auth/react";
 
 export default function Form() {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const {
     register,
@@ -25,12 +26,12 @@ export default function Form() {
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     setIsLoading(true);
     try {
-      // server action 을 사용.
-      // await signInAction(formData as FormData);
-      // await signIn()  // 클라이언트 session 이 갱신되지 않아 강제로 갱신 처리.
+      // server action 을 사용. 이 경우 반드시 서버 session 을 사용해야한다. 안 그러면 바로 갱신이 안 됨.
+      const res = await signInAction(formData as FormData);
+      res?.message ? setError(res.message) : setError("");
 
-      // 처음부터 next-auth/react 에 있는 signIn 을 사용.
-      await signIn("credentials", formData);
+      // 처음부터 next-auth/react 에 있는 signIn 을 사용. 클라이언트 session 이 바로 갱신된다.
+      // await signIn("credentials", formData);
     } catch (error) {
       console.error("Sign in error:", error);
     }
@@ -40,7 +41,7 @@ export default function Form() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 min-w-[350px]"
+      className="relative flex flex-col gap-4 min-w-[350px]"
     >
       <h1 className="text-2xl">Sign In</h1>
       <Input
@@ -66,6 +67,11 @@ export default function Form() {
         url="/auth/register"
         label="Create your Market account"
       />
+      {
+        <p className="absolute -bottom-7 w-full text-center text-red-600">
+          {error}
+        </p>
+      }
     </form>
   );
 }
