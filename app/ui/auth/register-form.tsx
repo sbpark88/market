@@ -30,7 +30,7 @@ export default function Form() {
       const { data } = await axios.post("/api/account", formData);
       router.push("/auth/login");
     } catch (error) {
-      console.error("Sign up error:", error);
+      console.error("Sign up error: ", error);
     }
     setIsLoading(false);
   };

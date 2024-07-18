@@ -33,7 +33,7 @@ export default function Form() {
       // 처음부터 next-auth/react 에 있는 signIn 을 사용. 클라이언트 session 이 바로 갱신된다.
       // await signIn("credentials", formData);
     } catch (error) {
-      console.error("Sign in error:", error);
+      console.error("Sign in error: ", error);
     }
     setIsLoading(false);
   };
