@@ -3,8 +3,9 @@
 import Header from "@/app/ui/header";
 import Input from "@/app/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Button from "@/app/ui/button";
+import ImageUpload from "@/app/ui/image-upload";
 
 export default function CreateForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,6 +14,8 @@ export default function CreateForm() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = useForm<FieldValues>({
     defaultValues: {
       title: "",
@@ -24,6 +27,13 @@ export default function CreateForm() {
       price: "",
     },
   });
+  const imageSrc = watch("imageSrc");
+  const setImageSrc = useCallback(
+    (value: string) => {
+      setValue("imageSrc", value);
+    },
+    [setValue],
+  );
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     setIsLoading(true);
@@ -37,7 +47,7 @@ export default function CreateForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
       <Header title="Product Upload" subtitle="upload your product" />
-      {/* Image Upload */}
+      <ImageUpload imageSrc={imageSrc} setImageSrc={setImageSrc} />
       <hr />
       <Input
         id="title"
