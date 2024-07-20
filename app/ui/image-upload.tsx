@@ -18,9 +18,7 @@ export default function ImageUpload({
 }) {
   const handleOnSuccess = useCallback(
     (results: CloudinaryUploadWidgetResults) => {
-      console.log("handleUploadAdded called");
       if ((results?.info as CloudinaryUploadWidgetInfo).secure_url) {
-        console.log("inro", results?.info);
         setImageSrc((results.info as CloudinaryUploadWidgetInfo).secure_url);
       }
     },

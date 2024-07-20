@@ -6,6 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import React, { useCallback, useState } from "react";
 import Button from "@/app/ui/button";
 import ImageUpload from "@/app/ui/image-upload";
+import Categories from "@/app/ui/products/categories";
 
 export default function CreateForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +28,20 @@ export default function CreateForm() {
       price: "",
     },
   });
-  const imageSrc = watch("imageSrc");
-  const setImageSrc = useCallback(
-    (value: string) => {
-      setValue("imageSrc", value);
+
+  const setForm = useCallback(
+    function <T>(key: string) {
+      return (value: T) => {
+        setValue(key, value);
+      };
     },
     [setValue],
   );
+
+  const imageSrc = watch("imageSrc");
+  const category = watch("category");
+  const setImageSrc = setForm<string>("imageSrc");
+  const setCategory = setForm<string>("category");
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     setIsLoading(true);
@@ -74,9 +82,7 @@ export default function CreateForm() {
         required
       />
       <hr />
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-        {/* Category */}
-      </section>
+      <Categories category={category} setCategory={setCategory} />
       <section>{/* Kakao Map */}</section>
       <Button label="상품 등록" />
     </form>
