@@ -7,6 +7,7 @@ import React, { useCallback, useState } from "react";
 import Button from "@/app/ui/button";
 import ImageUpload from "@/app/ui/image-upload";
 import Categories from "@/app/ui/products/categories";
+import dynamic from "next/dynamic";
 
 export default function CreateForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -40,8 +41,17 @@ export default function CreateForm() {
 
   const imageSrc = watch("imageSrc");
   const category = watch("category");
+  const location = watch(["latitude", "longitude"]);
   const setImageSrc = setForm<string>("imageSrc");
   const setCategory = setForm<string>("category");
+  const setLocation = useCallback(
+    ([latitude, longitude]: number[]) => {
+      console.log("cb");
+      setValue("latitude", latitude);
+      setValue("longitude", longitude);
+    },
+    [setValue],
+  );
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     setIsLoading(true);
@@ -51,6 +61,15 @@ export default function CreateForm() {
     }
     setIsLoading(false);
   };
+
+  const KakaoMap = dynamic(() => import("@/app/ui/kakao-map"), {
+    loading: () => (
+      <div className="bg-gray-300 text-gray-800 w-full h-[360px] text-center content-center">
+        Map Loading...
+      </div>
+    ),
+    ssr: false,
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
@@ -83,7 +102,7 @@ export default function CreateForm() {
       />
       <hr />
       <Categories category={category} setCategory={setCategory} />
-      <section>{/* Kakao Map */}</section>
+      <KakaoMap location={location} setLocation={setLocation} />
       <Button label="상품 등록" />
     </form>
   );
