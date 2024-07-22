@@ -8,8 +8,12 @@ import Button from "@/app/ui/button";
 import ImageUpload from "@/app/ui/image-upload";
 import Categories from "@/app/ui/products/categories";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { Product } from "@/prisma/generated/prisma-client-js";
 
 export default function CreateForm() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -46,7 +50,6 @@ export default function CreateForm() {
   const setCategory = setForm<string>("category");
   const setLocation = useCallback(
     ([latitude, longitude]: number[]) => {
-      console.log("cb");
       setValue("latitude", latitude);
       setValue("longitude", longitude);
     },
@@ -55,7 +58,10 @@ export default function CreateForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (formData) => {
     setIsLoading(true);
+
     try {
+      const { data } = await axios.post<Product>("/api/product", formData);
+      router.push(`/products/${data.id}`);
     } catch (error) {
       console.error("Product enrollment error: ", error);
     }

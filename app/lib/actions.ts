@@ -1,7 +1,6 @@
 "use server";
 
 import { z } from "zod";
-import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
 import { signIn } from "@/auth";
 
@@ -56,5 +55,4 @@ export async function signInAction(formData: FormData) {
     }
     throw error;
   }
-  redirect("/user");
 }

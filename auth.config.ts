@@ -8,7 +8,6 @@ import { Role } from "@/prisma/generated/prisma-client-js";
 
 const ONE_DAY = 24 * 60 * 60;
 const THIRTY_DAYS = 30 * ONE_DAY;
-const ERROR_PAGES = ["/unauthorized"];
 
 // https://authjs.dev/reference/nextjs#nextauthconfig
 export const authConfig = {
@@ -26,29 +25,28 @@ export const authConfig = {
 
       const { nextUrl } = request;
       const { pathname } = nextUrl;
+      const isOnHome = pathname === "/";
       const isOnAdmin = pathname.startsWith("/admin");
       const isOnUser = pathname.startsWith("/user");
-      const isOnErrorPages = ERROR_PAGES.find((page) =>
-        pathname.startsWith(page),
-      );
-
-      // 에러 페이지를 먼저 처리
-      // 여기서 처리하지 않으면 로그인 된 상태일 경우 리디렉션 후 'else if (isLoggedIn)'를 타게 된다.
-      if (isOnErrorPages) {
-        return true;
-      }
+      const isOnProduct = pathname.startsWith("/products");
+      const isAdmin = role === Role.ADMIN;
 
       // 인가된 사용자만 접속할 페이지
-      if (isOnAdmin) {
+      if (isOnHome) {
         if (!isLoggedIn) return false;
-        if (role === Role.USER) {
+      } else if (isOnAdmin) {
+        if (!isLoggedIn) return false;
+        if (!isAdmin) {
           return Response.redirect(new URL("/unauthorized", nextUrl));
         }
         return true;
       } else if (isOnUser) {
         return isLoggedIn;
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL("/user", nextUrl));
+      } else if (isOnProduct) {
+        const isOnUpload = pathname.startsWith("/products/upload");
+        if (isOnUpload && !isAdmin) {
+          // return Response.redirect(new URL("/unauthorized", nextUrl));
+        }
       }
 
       // 그 외 페이지는 인증 및 인가 여부 없이 모두 접속 가능.
