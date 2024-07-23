@@ -45,7 +45,7 @@ export const authConfig = {
       } else if (isOnProduct) {
         const isOnUpload = pathname.startsWith("/products/upload");
         if (isOnUpload && !isAdmin) {
-          // return Response.redirect(new URL("/unauthorized", nextUrl));
+          return Response.redirect(new URL("/unauthorized", nextUrl));
         }
       }
 

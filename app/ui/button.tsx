@@ -28,10 +28,10 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       className={clsx(
-        "relative w-full rounded-lg disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-80",
+        "relative w-full py-3 rounded-lg disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-80",
         outline
-          ? "bg-white border-black text-black text-sm py-1 font-light border-[1px]"
-          : "bg-rose-500 border-rose-500 text-white py-3 font-semibold border-2",
+          ? "bg-white border-black text-black font-light border-[1px]"
+          : "bg-rose-500 border-rose-500 text-white font-semibold border-2",
       )}
     >
       {Icon && <Icon size="24" className="absolute left-4 top-3" />}

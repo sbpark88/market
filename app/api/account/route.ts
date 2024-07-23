@@ -1,18 +1,19 @@
 import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const formData = await request.json();
-  const hashedPassword = await bcrypt.hash(formData.password, 10);
+  const body = await request.json();
+  const hashedPassword = await bcrypt.hash(body.password, 10);
 
   try {
     const user = await prisma?.user.create({
       data: {
-        ...formData,
+        ...body,
         password: hashedPassword,
       },
     });
 
-    return Response.json(user);
+    return NextResponse.json({ result: "success" });
   } catch (error) {
     console.error("Create account failed: ", error);
   }
