@@ -2,7 +2,9 @@
 
 import { z } from "zod";
 import { AuthError } from "next-auth";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
+import { User } from "@/prisma/generated/prisma-client-js";
+import prisma from "@/helpers/prismadb";
 
 const AuthFormSchema = z.object({
   name: z
@@ -54,5 +56,26 @@ export async function signInAction(formData: FormData) {
       }
     }
     throw error;
+  }
+}
+
+export async function getUser(email: string): Promise<User | undefined> {
+  try {
+    return await prisma.user.findUnique({
+      where: { email },
+    });
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
+}
+
+export async function getUserInfoFromSession(): Promise<User | undefined> {
+  try {
+    const session = await auth();
+    if (!session?.user.email) return undefined;
+    return await getUser(session.user.email);
+  } catch (error) {
+    return undefined;
   }
 }

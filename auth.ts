@@ -4,9 +4,9 @@ import { authConfig } from "@/auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "@auth/core/providers/credentials";
 import Google from "@auth/core/providers/google";
-import { Role, User } from "@/prisma/generated/prisma-client-js";
 import prisma from "./helpers/prismadb";
 import bcrypt from "bcrypt";
+import { getUser } from "@/app/lib/auth-actions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -49,14 +49,3 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Google,
   ],
 });
-
-async function getUser(email: string): Promise<User | undefined> {
-  try {
-    return await prisma.user.findUnique({
-      where: { email },
-    });
-  } catch (error) {
-    console.error("Failed to fetch user:", error);
-    throw new Error("Failed to fetch user.");
-  }
-}
