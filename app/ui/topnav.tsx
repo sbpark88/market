@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import useDebounceFn from "@/app/utils/useDebounceFn";
+import useDebounceFn from "@/app/lib/performance/useDebounceFn";
 import { SignIn } from "@/app/ui/signin-button";
 import { SignOut } from "@/app/ui/signout-button";
 import { User } from "@/prisma/generated/prisma-client-js";
