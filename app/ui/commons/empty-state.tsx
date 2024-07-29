@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "@/app/ui/header";
-import Button from "@/app/ui/button";
+import Header from "@/app/ui/atomic/header";
+import Button from "@/app/ui/atomic/button";
 import { useRouter } from "next/navigation";
 
 export type EmptyStateParams = {

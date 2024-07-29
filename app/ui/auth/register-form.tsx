@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Input from "@/app/ui/input";
+import Input from "@/app/ui/atomic/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import Button from "@/app/ui/button";
+import Button from "@/app/ui/atomic/button";
 import Redirect from "@/app/ui/auth/redirect";
 
 export default function Form() {

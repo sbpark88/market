@@ -1,16 +1,16 @@
 "use client";
 
-import Header from "@/app/ui/header";
-import Input from "@/app/ui/input";
+import Header from "@/app/ui/atomic/header";
+import Input from "@/app/ui/atomic/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import React, { useCallback, useState } from "react";
-import Button from "@/app/ui/button";
-import ImageUpload from "@/app/ui/image-upload";
-import Categories from "@/app/ui/products/categories";
+import Button from "@/app/ui/atomic/button";
+import ImageUpload from "@/app/ui/commons/image-upload";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Product } from "@/prisma/generated/prisma-client-js";
+import InputCategories from "@/app/ui/products/input-categories";
 
 export default function CreateForm() {
   const router = useRouter();
@@ -68,7 +68,7 @@ export default function CreateForm() {
     setIsLoading(false);
   };
 
-  const KakaoMap = dynamic(() => import("@/app/ui/kakao-map"), {
+  const KakaoMap = dynamic(() => import("@/app/ui/commons/kakao-map"), {
     loading: () => (
       <div className="bg-gray-300 text-gray-800 w-full h-[360px] text-center content-center">
         Map Loading...
@@ -107,7 +107,7 @@ export default function CreateForm() {
         required
       />
       <hr />
-      <Categories category={category} setCategory={setCategory} />
+      <InputCategories category={category} setCategory={setCategory} />
       <KakaoMap location={location} setLocation={setLocation} />
       <Button label="상품 등록" />
     </form>
