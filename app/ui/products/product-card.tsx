@@ -3,9 +3,9 @@
 import { Product, User } from "@/prisma/generated/prisma-client-js";
 import Image from "next/image";
 import HeartButton from "@/app/ui/products/heart-button";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { timeDiffFromNow } from "@/app/lib/calendar";
+import dayjs from "@/app/lib/dayjs";
 
 export default function ProductCard({
   product,
@@ -72,12 +72,6 @@ function CardInfo({
   price: number;
   createdAt: Date;
 }) {
-  const [dateString, setDateString] = useState("");
-
-  useEffect(() => {
-    setDateString(timeDiffFromNow(createdAt));
-  }, []);
-
   return (
     <>
       <p className="text-lg font-semibold">{title}</p>
@@ -86,9 +80,9 @@ function CardInfo({
       </p>
       <div className="">
         <p className="font-semibold">
-          {price} <span className="font-semibold">원</span>
+          {price} <span className="font-semibold">원</span>`
         </p>
-        <p>{dateString}</p>
+        <p>{dayjs(createdAt).fromNow()}</p>
       </div>
     </>
   );
