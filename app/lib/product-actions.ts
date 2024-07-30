@@ -1,18 +1,30 @@
 "use server";
 
 import { Product } from "@/prisma/generated/prisma-client-js";
+import { PRODUCTS_PER_PAGES } from "@/app/lib/constants";
 
 export type ProductParams = {
   category?: string;
   latitude?: number;
   longitude?: number;
+  page?: number;
+  itemsPerPage?: number;
 };
 
 export async function getProducts({
   category,
   latitude,
   longitude,
-}: ProductParams): Promise<Product[] | undefined> {
+  page = 1,
+  itemsPerPage = PRODUCTS_PER_PAGES,
+}: ProductParams): Promise<{
+  data?: Product[];
+  pagination: {
+    page: number;
+    totalItems: number;
+    itemsPerPage: number;
+  };
+} | null> {
   try {
     let query: Record<string, unknown> = {};
 
@@ -34,14 +46,27 @@ export async function getProducts({
       };
     }
 
-    return await prisma?.product.findMany({
+    const totalItems = (await prisma?.product.count({ where: query })) ?? 0;
+
+    const data = await prisma?.product.findMany({
       where: query,
       orderBy: {
         createdAt: "desc",
       },
+      skip: (page - 1) * itemsPerPage,
+      take: itemsPerPage,
     });
+
+    return {
+      data,
+      pagination: {
+        page,
+        totalItems,
+        itemsPerPage,
+      },
+    };
   } catch (error) {
     console.error(error);
-    return undefined;
+    return null;
   }
 }
