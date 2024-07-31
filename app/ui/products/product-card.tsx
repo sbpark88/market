@@ -78,9 +78,10 @@ function CardInfo({
       <p className="font-light text-neutral-500 dark:text-neutral-300">
         {category}
       </p>
-      <div className="">
+      <div className="flex justify-between">
         <p className="font-semibold">
-          {price} <span className="font-semibold">원</span>`
+          {price}
+          <span className="font-semibold">원</span>
         </p>
         <p>{dayjs(createdAt).fromNow()}</p>
       </div>

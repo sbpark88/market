@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import TopNav from "@/app/ui/topnav";
+import TopNav from "@/app/ui/commons/topnav";
 import { auth } from "@/auth";
 import Script from "next/script";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.min.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +27,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TopNav user={session?.user} />
         {children}
+        <ToastContainer />
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_KEY}&libraries=services,clusterer&autoload=false`}
         />
