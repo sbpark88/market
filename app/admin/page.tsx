@@ -1,3 +1,3 @@
 export default function Page() {
-  return <>Admin</>;
+  return <>Admin Page 입니다</>;
 }

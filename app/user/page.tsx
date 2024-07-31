@@ -1,3 +1,3 @@
 export default function Page() {
-  return <>User</>;
+  return <>User Page 입니다</>;
 }
