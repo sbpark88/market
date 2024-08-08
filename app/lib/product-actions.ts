@@ -1,6 +1,6 @@
 "use server";
 
-import { Product } from "@/prisma/generated/prisma-client-js";
+import { Product, User } from "@/prisma/generated/prisma-client-js";
 import { PRODUCTS_PER_PAGES } from "@/app/lib/constants";
 
 export type ProductParams = {
@@ -65,6 +65,29 @@ export async function getProducts({
         itemsPerPage,
       },
     };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function getProductById({
+  productId,
+}: {
+  productId: string;
+}): Promise<(Product & { user: User }) | null> {
+  try {
+    const data = await prisma?.product.findUnique({
+      where: {
+        id: productId,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    if (!data) return null;
+    return data;
   } catch (error) {
     console.error(error);
     return null;

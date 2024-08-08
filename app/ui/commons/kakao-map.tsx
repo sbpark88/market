@@ -1,9 +1,11 @@
+"use client";
+
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useCallback } from "react";
 
 type Props = {
   location: number[];
-  setLocation: ([latitude, longitude]: number[]) => void;
+  setLocation?: ([latitude, longitude]: number[]) => void;
   viewer?: boolean;
   height?: string;
 };
@@ -18,7 +20,7 @@ export default function KakaoMap({
     (target: kakao.maps.Map, mouseEvent: kakao.maps.event.MouseEvent) => {
       if (viewer) return;
       const location = [mouseEvent.latLng.getLat(), mouseEvent.latLng.getLng()];
-      setLocation([...location]);
+      setLocation!([...location]);
     },
     [setLocation, viewer],
   );

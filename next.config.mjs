@@ -11,8 +11,15 @@ const nextConfig = {
         port: '',
         pathname: `/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/**`,
       },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        port: '',
+        pathname: `/**`,
+      },
     ],
   }
 };
 
 export default nextConfig;
+
