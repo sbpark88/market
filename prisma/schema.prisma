@@ -21,10 +21,11 @@ model User {
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  favoriteIds String[]
-  Product     Product[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  favoriteIds  String[]
+  Product      Product[]
+  Conversation Conversation[]
 }
 
 model Account {
@@ -101,4 +102,23 @@ model Product {
   updatedAt   DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Conversation {
+  id       String    @id @default(cuid())
+  users    User[]
+  messages Message[]
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  text       String?
+  image      String?
+  senderId   String
+  receiverId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
 }

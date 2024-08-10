@@ -187,6 +187,21 @@ exports.Prisma.ProductScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  image: 'image',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  conversationId: 'conversationId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -212,7 +227,9 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
-  Product: 'Product'
+  Product: 'Product',
+  Conversation: 'Conversation',
+  Message: 'Message'
 };
 
 /**
