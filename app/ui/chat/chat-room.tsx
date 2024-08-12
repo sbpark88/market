@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { ChatPartner, CloseChat } from "@/app/lib/hooks/useChat";
+import { CloseChat } from "@/app/lib/hooks/useChat";
+import { ChatPartner } from "@/app/lib/definitions";
 
 export default function ChatRoom({
   onChat,

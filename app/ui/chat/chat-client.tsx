@@ -3,29 +3,28 @@
 import { User } from "@/prisma/generated/prisma-client-js";
 import ChatList from "@/app/ui/chat/chat-list";
 import ChatRoom from "@/app/ui/chat/chat-room";
-import { useEffect } from "react";
 import axios from "axios";
+import useSWR from "swr";
 import { useChat } from "@/app/lib/hooks/useChat";
 import { toast } from "react-toastify";
+import { Chat } from "@/app/lib/definitions";
 
 export default function ChatClient({ user }: { user?: User }) {
   const [chatPartner, onChat, openChat, closeChat] = useChat();
 
-  useEffect(() => {
-    axios
-      .get(`/api/chat`)
-      .then((res) => {
-        console.log(res, res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("잠시 후 다시 시도해주세요.", {
-          position: "bottom-center",
-          hideProgressBar: true,
-          autoClose: 2000,
-        });
-      });
-  }, []);
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+  const { data, error, isLoading } = useSWR<Chat>(`/api/chat`, fetcher, {
+    refreshInterval: 1000,
+  });
+
+  if (error) {
+    toast.error("연결이 원활하지 않습니다.", {
+      position: "bottom-center",
+      hideProgressBar: true,
+      autoClose: 2000,
+    });
+  }
 
   return (
     <>

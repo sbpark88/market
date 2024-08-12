@@ -1,10 +1,5 @@
 import { useCallback, useState } from "react";
-
-export type ChatPartner = {
-  id: string;
-  name: string;
-  image?: string;
-};
+import { ChatPartner } from "@/app/lib/definitions";
 
 export type OpenChat = (chatPartner: ChatPartner) => void;
 export type CloseChat = () => void;
