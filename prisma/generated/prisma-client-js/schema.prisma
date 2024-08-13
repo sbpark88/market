@@ -21,11 +21,11 @@ model User {
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  favoriteIds  String[]
-  Product      Product[]
-  Conversation Conversation[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  favoriteIds   String[]
+  Product       Product[]
+  Conversations Conversation[] @relation(name: "conversationUsers")
 }
 
 model Account {
@@ -105,9 +105,11 @@ model Product {
 }
 
 model Conversation {
-  id       String    @id @default(cuid())
-  users    User[]
-  messages Message[]
+  id         String    @id @default(cuid())
+  userIds    String[]
+  Users      User[]    @relation(name: "conversationUsers")
+  messageIds String[]
+  Messages   Message[] @relation(name: "conversationMessages")
 }
 
 model Message {
@@ -120,5 +122,5 @@ model Message {
   updatedAt  DateTime @updatedAt
 
   conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  Conversation   Conversation @relation(name: "conversationMessages", fields: [conversationId], references: [id])
 }
