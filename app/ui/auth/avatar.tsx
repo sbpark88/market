@@ -1,10 +1,10 @@
 import { User } from "@/prisma/generated/prisma-client-js";
 import Image from "next/image";
 
-const NO_USER_AVAAR = "https://via.placeholder.com/400x400?text=user";
+const NO_USER_AVATAR = "https://via.placeholder.com/400x400?text=user";
 
 export default function Avatar({ user }: { user?: User }) {
-  const imageSrc = user?.image ?? NO_USER_AVAAR;
+  const imageSrc = user?.image ?? NO_USER_AVATAR;
 
   return (
     <Image

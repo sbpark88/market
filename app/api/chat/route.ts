@@ -1,20 +1,19 @@
 import { auth } from "@/auth";
-import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const session = await auth();
-  if (!session?.user) return NextResponse.error();
+  if (!session?.user) return Response.error();
 
   const user = await prisma?.user.findUnique({
     where: {
       id: session.user.id,
     },
     include: {
-      Conversation: true,
+      Conversations: true,
     },
   });
-  const conversationIds = user?.Conversation.map((conv) => conv.id);
-  if (!conversationIds) return NextResponse.json(null);
+  const conversationIds = user?.Conversations.map((conv) => conv.id);
+  if (!conversationIds) return Response.json(null);
 
   const conversations = await prisma?.conversation.findMany({
     where: {
@@ -23,9 +22,69 @@ export async function GET(request: Request) {
       },
     },
     include: {
-      users: true,
-      messages: true,
+      Users: true,
+      Messages: true,
     },
   });
-  return NextResponse.json(conversations);
+  return Response.json(conversations);
+}
+
+export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user) return Response.error();
+
+  const body = await request.json();
+  const partnerId = body.partnerId;
+
+  let conversation = await prisma?.conversation.findFirst({
+    where: {
+      AND: [
+        {
+          Users: {
+            some: {
+              id: session.user.id,
+            },
+          },
+        },
+        {
+          Users: {
+            some: {
+              id: partnerId,
+            },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!conversation) {
+    try {
+      const myId = session.user.id;
+      conversation = await prisma?.conversation.create({
+        data: {
+          userIds: [myId, partnerId],
+          Users: {
+            connect: [
+              {
+                id: myId,
+              },
+              {
+                id: partnerId,
+              },
+            ],
+          },
+        },
+      });
+    } catch (error) {
+      return Response.error();
+    }
+  }
+
+  if (conversation) {
+    return Response.json({
+      chatUrl: `/chat?id=${conversation.id}`,
+    });
+  } else {
+    return Response.error();
+  }
 }

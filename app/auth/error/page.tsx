@@ -17,7 +17,7 @@ export default function Page({
   }, [searchParams]);
 
   return (
-    <main className="flex h-[calc(100vh-3.5rem)] flex-col items-center justify-center">
+    <main className="flex h-[calc(100dvh-3.5rem)] flex-col items-center justify-center">
       <h2 className="text-center">인증 실패</h2>
       <Link
         href="/auth/login"

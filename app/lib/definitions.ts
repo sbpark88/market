@@ -13,8 +13,8 @@ export type Category = {
 };
 
 export type Chat = Conversation & {
-  user: User[];
-  messages: Message[];
+  Users: User[];
+  Messages: Message[];
 };
 
 export type ChatPartner = {

@@ -1,7 +1,7 @@
 import { User } from "@/prisma/generated/prisma-client-js";
 import { Category } from "@/app/lib/definitions";
 import Avatar from "@/app/ui/auth/avatar";
-import dayjs from "@/app/lib/dayjs";
+import { formatDate } from "@/app/lib/dayjs";
 
 export default function ProductInfo({
   description,
@@ -11,14 +11,14 @@ export default function ProductInfo({
 }: {
   description: string;
   createdAt: Date;
-  category?: Category;
   user?: User;
+  category?: Category;
 }) {
   return (
     <div className="flex flex-col gap-8">
       <div>
         <ProductUser user={user} />
-        <p className="mt-2">{dayjs(createdAt).format("YYYY-M-D A h:m")}</p>
+        <p className="mt-2">{formatDate(createdAt)}</p>
       </div>
       <hr />
       <ProductCategory category={category} />

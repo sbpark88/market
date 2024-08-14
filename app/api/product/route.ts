@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { z } from "zod";
-import { NextResponse } from "next/server";
 
 const FormSchema = z.object({
   id: z.string(),
@@ -25,7 +24,7 @@ const CreateProduct = FormSchema.omit({
 
 export async function POST(request: Request) {
   const session = await auth();
-  if (!session?.user) return NextResponse.error();
+  if (!session?.user) return Response.error();
   const formData = await request.json();
   const validatedFields = CreateProduct.safeParse(formData);
 
@@ -52,5 +51,5 @@ export async function POST(request: Request) {
     },
   });
 
-  return NextResponse.json(createdProduct);
+  return Response.json(createdProduct);
 }

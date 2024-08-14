@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -13,7 +12,7 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ result: "success" });
+    return Response.json({ result: "success" });
   } catch (error) {
     console.error("Create account failed: ", error);
   }

@@ -105,11 +105,9 @@ model Product {
 }
 
 model Conversation {
-  id         String    @id @default(cuid())
-  userIds    String[]
-  Users      User[]    @relation(name: "conversationUsers")
-  messageIds String[]
-  Messages   Message[] @relation(name: "conversationMessages")
+  id       String    @id @default(cuid())
+  Users    User[]    @relation(name: "conversationUsers")
+  Messages Message[] @relation(name: "conversationMessages")
 }
 
 model Message {

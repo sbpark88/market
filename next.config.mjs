@@ -17,6 +17,12 @@ const nextConfig = {
         port: '',
         pathname: `/**`,
       },
+      {
+        protocol: 'https',
+        hostname: 'sbpark88.github.io',
+        port: '',
+        pathname: `/assets/images/**`,
+      },
     ],
   }
 };

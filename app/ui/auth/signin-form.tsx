@@ -6,7 +6,6 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Redirect from "@/app/ui/auth/redirect";
 import { signInAction } from "@/app/lib/auth-actions";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Form() {

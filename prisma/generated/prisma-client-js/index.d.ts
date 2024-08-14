@@ -7623,8 +7623,6 @@ export namespace Prisma {
 
   export type ConversationCountAggregateOutputType = {
     id: number
-    userIds: number
-    messageIds: number
     _all: number
   }
 
@@ -7639,8 +7637,6 @@ export namespace Prisma {
 
   export type ConversationCountAggregateInputType = {
     id?: true
-    userIds?: true
-    messageIds?: true
     _all?: true
   }
 
@@ -7718,8 +7714,6 @@ export namespace Prisma {
 
   export type ConversationGroupByOutputType = {
     id: string
-    userIds: string[]
-    messageIds: string[]
     _count: ConversationCountAggregateOutputType | null
     _min: ConversationMinAggregateOutputType | null
     _max: ConversationMaxAggregateOutputType | null
@@ -7741,8 +7735,6 @@ export namespace Prisma {
 
   export type ConversationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userIds?: boolean
-    messageIds?: boolean
     Users?: boolean | Conversation$UsersArgs<ExtArgs>
     Messages?: boolean | Conversation$MessagesArgs<ExtArgs>
     _count?: boolean | ConversationCountOutputTypeDefaultArgs<ExtArgs>
@@ -7750,14 +7742,10 @@ export namespace Prisma {
 
   export type ConversationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userIds?: boolean
-    messageIds?: boolean
   }, ExtArgs["result"]["conversation"]>
 
   export type ConversationSelectScalar = {
     id?: boolean
-    userIds?: boolean
-    messageIds?: boolean
   }
 
   export type ConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7775,8 +7763,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      userIds: string[]
-      messageIds: string[]
     }, ExtArgs["result"]["conversation"]>
     composites: {}
   }
@@ -8173,8 +8159,6 @@ export namespace Prisma {
    */ 
   interface ConversationFieldRefs {
     readonly id: FieldRef<"Conversation", 'String'>
-    readonly userIds: FieldRef<"Conversation", 'String[]'>
-    readonly messageIds: FieldRef<"Conversation", 'String[]'>
   }
     
 
@@ -9613,9 +9597,7 @@ export namespace Prisma {
 
 
   export const ConversationScalarFieldEnum: {
-    id: 'id',
-    userIds: 'userIds',
-    messageIds: 'messageIds'
+    id: 'id'
   };
 
   export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
@@ -10197,16 +10179,12 @@ export namespace Prisma {
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
     id?: StringFilter<"Conversation"> | string
-    userIds?: StringNullableListFilter<"Conversation">
-    messageIds?: StringNullableListFilter<"Conversation">
     Users?: UserListRelationFilter
     Messages?: MessageListRelationFilter
   }
 
   export type ConversationOrderByWithRelationInput = {
     id?: SortOrder
-    userIds?: SortOrder
-    messageIds?: SortOrder
     Users?: UserOrderByRelationAggregateInput
     Messages?: MessageOrderByRelationAggregateInput
   }
@@ -10216,16 +10194,12 @@ export namespace Prisma {
     AND?: ConversationWhereInput | ConversationWhereInput[]
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
-    userIds?: StringNullableListFilter<"Conversation">
-    messageIds?: StringNullableListFilter<"Conversation">
     Users?: UserListRelationFilter
     Messages?: MessageListRelationFilter
   }, "id">
 
   export type ConversationOrderByWithAggregationInput = {
     id?: SortOrder
-    userIds?: SortOrder
-    messageIds?: SortOrder
     _count?: ConversationCountOrderByAggregateInput
     _max?: ConversationMaxOrderByAggregateInput
     _min?: ConversationMinOrderByAggregateInput
@@ -10236,8 +10210,6 @@ export namespace Prisma {
     OR?: ConversationScalarWhereWithAggregatesInput[]
     NOT?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Conversation"> | string
-    userIds?: StringNullableListFilter<"Conversation">
-    messageIds?: StringNullableListFilter<"Conversation">
   }
 
   export type MessageWhereInput = {
@@ -10804,52 +10776,38 @@ export namespace Prisma {
 
   export type ConversationCreateInput = {
     id?: string
-    userIds?: ConversationCreateuserIdsInput | string[]
-    messageIds?: ConversationCreatemessageIdsInput | string[]
     Users?: UserCreateNestedManyWithoutConversationsInput
     Messages?: MessageCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUncheckedCreateInput = {
     id?: string
-    userIds?: ConversationCreateuserIdsInput | string[]
-    messageIds?: ConversationCreatemessageIdsInput | string[]
     Users?: UserUncheckedCreateNestedManyWithoutConversationsInput
     Messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
     Users?: UserUpdateManyWithoutConversationsNestedInput
     Messages?: MessageUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
     Users?: UserUncheckedUpdateManyWithoutConversationsNestedInput
     Messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationCreateManyInput = {
     id?: string
-    userIds?: ConversationCreateuserIdsInput | string[]
-    messageIds?: ConversationCreatemessageIdsInput | string[]
   }
 
   export type ConversationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
   }
 
   export type ConversationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
   }
 
   export type MessageCreateInput = {
@@ -11490,8 +11448,6 @@ export namespace Prisma {
 
   export type ConversationCountOrderByAggregateInput = {
     id?: SortOrder
-    userIds?: SortOrder
-    messageIds?: SortOrder
   }
 
   export type ConversationMaxOrderByAggregateInput = {
@@ -11859,14 +11815,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProductInput, UserUpdateWithoutProductInput>, UserUncheckedUpdateWithoutProductInput>
   }
 
-  export type ConversationCreateuserIdsInput = {
-    set: string[]
-  }
-
-  export type ConversationCreatemessageIdsInput = {
-    set: string[]
-  }
-
   export type UserCreateNestedManyWithoutConversationsInput = {
     create?: XOR<UserCreateWithoutConversationsInput, UserUncheckedCreateWithoutConversationsInput> | UserCreateWithoutConversationsInput[] | UserUncheckedCreateWithoutConversationsInput[]
     connectOrCreate?: UserCreateOrConnectWithoutConversationsInput | UserCreateOrConnectWithoutConversationsInput[]
@@ -11891,16 +11839,6 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutConversationInput | MessageCreateOrConnectWithoutConversationInput[]
     createMany?: MessageCreateManyConversationInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
-  }
-
-  export type ConversationUpdateuserIdsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type ConversationUpdatemessageIdsInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type UserUpdateManyWithoutConversationsNestedInput = {
@@ -12337,15 +12275,11 @@ export namespace Prisma {
 
   export type ConversationCreateWithoutUsersInput = {
     id?: string
-    userIds?: ConversationCreateuserIdsInput | string[]
-    messageIds?: ConversationCreatemessageIdsInput | string[]
     Messages?: MessageCreateNestedManyWithoutConversationInput
   }
 
   export type ConversationUncheckedCreateWithoutUsersInput = {
     id?: string
-    userIds?: ConversationCreateuserIdsInput | string[]
-    messageIds?: ConversationCreatemessageIdsInput | string[]
     Messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
   }
 
@@ -12500,8 +12434,6 @@ export namespace Prisma {
     OR?: ConversationScalarWhereInput[]
     NOT?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
     id?: StringFilter<"Conversation"> | string
-    userIds?: StringNullableListFilter<"Conversation">
-    messageIds?: StringNullableListFilter<"Conversation">
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -12973,15 +12905,11 @@ export namespace Prisma {
 
   export type ConversationCreateWithoutMessagesInput = {
     id?: string
-    userIds?: ConversationCreateuserIdsInput | string[]
-    messageIds?: ConversationCreatemessageIdsInput | string[]
     Users?: UserCreateNestedManyWithoutConversationsInput
   }
 
   export type ConversationUncheckedCreateWithoutMessagesInput = {
     id?: string
-    userIds?: ConversationCreateuserIdsInput | string[]
-    messageIds?: ConversationCreatemessageIdsInput | string[]
     Users?: UserUncheckedCreateNestedManyWithoutConversationsInput
   }
 
@@ -13003,15 +12931,11 @@ export namespace Prisma {
 
   export type ConversationUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
     Users?: UserUpdateManyWithoutConversationsNestedInput
   }
 
   export type ConversationUncheckedUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
     Users?: UserUncheckedUpdateManyWithoutConversationsNestedInput
   }
 
@@ -13197,22 +13121,16 @@ export namespace Prisma {
 
   export type ConversationUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
     Messages?: MessageUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
     Messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
   }
 
   export type ConversationUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userIds?: ConversationUpdateuserIdsInput | string[]
-    messageIds?: ConversationUpdatemessageIdsInput | string[]
   }
 
   export type MessageCreateManyConversationInput = {

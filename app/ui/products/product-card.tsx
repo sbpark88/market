@@ -5,7 +5,7 @@ import Image from "next/image";
 import HeartButton from "@/app/ui/products/heart-button";
 import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
-import dayjs from "@/app/lib/dayjs";
+import { fromNow } from "@/app/lib/dayjs";
 
 export default function ProductCard({
   product,
@@ -83,7 +83,7 @@ function CardInfo({
           {price}
           <span className="font-semibold">원</span>
         </p>
-        <p>{dayjs(createdAt).fromNow()}</p>
+        <p>{fromNow(createdAt)}</p>
       </div>
     </>
   );

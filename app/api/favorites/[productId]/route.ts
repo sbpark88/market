@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { getUserInfoFromSession } from "@/app/lib/auth-actions";
 
 type Params = {
@@ -7,7 +6,7 @@ type Params = {
 
 export async function POST(request: Request, context: { params: Params }) {
   const user = await getUserInfoFromSession();
-  if (!user) return NextResponse.error();
+  if (!user) return Response.error();
 
   try {
     const { productId } = context.params;
@@ -22,19 +21,19 @@ export async function POST(request: Request, context: { params: Params }) {
         id: user.id,
       },
     });
-    return NextResponse.json({ result: "success" });
+    return Response.json({ result: "success" });
   } catch (error) {
     console.error(
       "Error occurred when adding user's favorite products: ",
       error,
     );
-    return NextResponse.error();
+    return Response.error();
   }
 }
 
 export async function DELETE(request: Request, context: { params: Params }) {
   const user = await getUserInfoFromSession();
-  if (!user) return NextResponse.error();
+  if (!user) return Response.error();
 
   try {
     const { productId } = context.params;
@@ -50,12 +49,12 @@ export async function DELETE(request: Request, context: { params: Params }) {
         id: user.id,
       },
     });
-    return NextResponse.json({ result: "success" });
+    return Response.json({ result: "success" });
   } catch (error) {
     console.error(
       "Error occurred when removing user's favorite products: ",
       error,
     );
-    return NextResponse.error();
+    return Response.error();
   }
 }

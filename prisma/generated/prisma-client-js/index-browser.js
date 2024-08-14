@@ -188,9 +188,7 @@ exports.Prisma.ProductScalarFieldEnum = {
 };
 
 exports.Prisma.ConversationScalarFieldEnum = {
-  id: 'id',
-  userIds: 'userIds',
-  messageIds: 'messageIds'
+  id: 'id'
 };
 
 exports.Prisma.MessageScalarFieldEnum = {
