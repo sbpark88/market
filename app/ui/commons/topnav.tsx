@@ -66,6 +66,7 @@ export default function TopNav({ user }: { user?: User }) {
 const links = [
   { name: "Admin", href: "/admin" },
   { name: "User", href: "/user" },
+  { name: "Chat", href: "/chat" },
 ];
 
 function NavLinks() {
